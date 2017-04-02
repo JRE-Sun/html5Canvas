@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>旋转图片</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <script>
+        window.onload = function() {
+            var btn = document.querySelectorAll("input");
+            var img = document.querySelector("img");
+            //图片预加载
+            var oImg = new Image();
+            oImg.src = img.src;
+            oImg.onload = function() {
+                // alert();
+                var ca = document.createElement('canvas');
+                var cg = ca.getContext('2d');
+                var num = 0;
+                ca.width = img.width;
+                ca.height = img.height;
+                img.parentElement.replaceChild(ca, img);
+                cg.drawImage(img, 0, 0); //画出刚才的img
+
+                btn[1].addEventListener("click", function() {
+                    // alert();
+                    if (num == 3) {
+                        num = 0;
+                    } else {
+                        num++;
+                    }
+                    toChange();
+                }, false);
+
+                btn[0].addEventListener("click", function() {
+                    // alert();
+                    if (num == 0) {
+                        num = 3;
+                    } else {
+                        num--;
+                    }
+                    toChange();
+                }, false);
+
+                function toChange() {
+                    switch (num) {
+                        case 0:
+                            ca.width = img.width;
+                            ca.height = img.height;
+                            cg.rotate(0);
+                            cg.drawImage(img, 0, 0);
+
+                            break;
+                        case 1:
+                            //注：旋转90°后，画布的宽高要从新调整
+                            //图片旋转，会滚出屏幕，需要调整x，y坐标
+                            //图片旋转后x，y坐标轴也跟着旋转。
+                            ca.width = img.height;
+                            ca.height = img.width;
+                            cg.rotate(90 * Math.PI / 180);
+                            cg.drawImage(img, 0, -img.height);
+                            break;
+                        case 2:
+                            ca.width = img.width;
+                            ca.height = img.height;
+                            cg.rotate(180 * Math.PI / 180);
+                            cg.drawImage(img, -img.width, -img.height);
+                            break;
+                        case 3:
+                            ca.width = img.height;
+                            ca.height = img.width;
+                            cg.rotate(270 * Math.PI / 180);
+                            cg.drawImage(img, -img.width, 0);
+                            break;
+                    }
+                };
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <input type="button" name="" value="左转">
+    <input type="button" name="" value="右转">
+    <div>
+        <img src="1.jpg" alt="">
+    </div>
+</body>
+
+</html>
