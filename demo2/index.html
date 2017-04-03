@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <style>
+        body {
+            background: #ccc;
+        }
+        
+        #ca {
+            background: #fff;
+        }
+    </style>
+
+    <script>
+        window.onload = function() {
+            var ca = document.querySelector("#ca");
+            var cg = ca.getContext("2d");
+            cg.font = "80px Georgia";
+            cg.fillStyle = "red";
+            cg.textBaseline = "top"; //上面这些样式都必须在fillText之前配置
+            var a = cg.measureText("JreSun").width;
+            cg.fillText("JreSun", (ca.width - a) / 2, (ca.height - 80) / 2);
+        };
+    </script>
+</head>
+
+<body>
+    <canvas width="400" height="400" id="ca"></canvas>
+</body>
+
+</html>
